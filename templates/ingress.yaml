@@ -1,0 +1,22 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: pypi
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt
+spec:
+  rules:
+    - host: pypi.bjoernpetersen.net
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: pypi
+                port:
+                  name: http
+  tls:
+    - secretName: tls-certificate
+      hosts:
+        - pypi.bjoernpetersen.net
