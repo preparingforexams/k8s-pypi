@@ -4,5 +4,5 @@ CMD [ \
   "run", \
   "--hash-algo", "sha256", \
   "--disable-fallback", \
-  "-P", ".htpasswd" \
+  "--password", ".htpasswd"
 ]
