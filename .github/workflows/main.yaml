@@ -27,7 +27,7 @@ jobs:
       - uses: actions/checkout@v3
       - name: Substitute environment variables in values.yaml
         env:
-          ACCESS_FILE_B64: ${{ secrets.GITHUB_TOKEN }}
+          ACCESS_FILE_B64: ${{ secrets.ACCESS_FILE_B64 }}
         run: "envsubst < values.yaml > values_sub.yaml && mv values_sub.yaml values.yaml"
       - uses: WyriHaximus/github-action-helm3@v2
         with:
