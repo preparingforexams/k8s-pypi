@@ -68,3 +68,7 @@ spec:
               name: credentials
               subPath: access_file
               readOnly: true
+          livenessProbe:
+            httpGet:
+              port: http
+              path: /health
