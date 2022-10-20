@@ -23,6 +23,7 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: [docker-app]
+    concurrency: production
     steps:
       - uses: actions/checkout@v3
       - name: Substitute environment variables in values.yaml
@@ -33,5 +34,5 @@ jobs:
         with:
           exec: |
             helm dependency update
-            helm upgrade files . --install --namespace=pypi
+            helm upgrade files . --install --namespace=pypi --atomic
           kubeconfig: '${{ secrets.KUBECONFIG_RAW }}'
