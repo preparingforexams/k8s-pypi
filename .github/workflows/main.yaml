@@ -16,9 +16,9 @@ jobs:
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
       - name: Build the tagged Docker image
-        run: docker build -t ghcr.io/bjoernpetersen/pypi:${GITHUB_SHA} .
+        run: docker build -t ghcr.io/preparingforexams/pypi:${GITHUB_SHA} .
       - name: Push the tagged Docker image
-        run: docker push ghcr.io/bjoernpetersen/pypi:${GITHUB_SHA}
+        run: docker push ghcr.io/preparingforexams/pypi:${GITHUB_SHA}
 
   deploy:
     runs-on: ubuntu-latest
