@@ -1,2 +1,2 @@
-image: ghcr.io/bjoernpetersen/pypi:${GITHUB_SHA}
+image: ghcr.io/preparingforexams/pypi:${GITHUB_SHA}
 accessFile: ${ACCESS_FILE_B64}
