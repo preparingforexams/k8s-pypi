@@ -3,7 +3,7 @@ kind: Ingress
 metadata:
   name: pypi
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: letsencrypt-born
 spec:
   rules:
     - host: pypi.bjoernpetersen.net
