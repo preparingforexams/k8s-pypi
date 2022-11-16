@@ -34,5 +34,5 @@ jobs:
         with:
           exec: |
             helm dependency update
-            helm upgrade files . --install --namespace=pypi --atomic
+            helm upgrade files . --install --namespace=pypi 
           kubeconfig: '${{ secrets.KUBECONFIG_RAW }}'
