@@ -5,20 +5,23 @@ jobs:
   docker-app:
     name: App Build and Push
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
+    if: github.ref_name == github.event.repository.default_branch
     steps:
       - name: Check out repo
         uses: actions/checkout@v3
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
       - name: Log in to GitHub Container Registry
         uses: docker/login-action@v2
         with:
           registry: ghcr.io
           username: ${{ github.repository_owner }}
-          password: ${{ secrets.GITHUB_TOKEN }}
-      - name: Build the tagged Docker image
-        run: docker build -t ghcr.io/preparingforexams/pypi:${GITHUB_SHA} .
-      - name: Push the tagged Docker image
-        run: docker push ghcr.io/preparingforexams/pypi:${GITHUB_SHA}
+          password: ${{ github.token }}
+      - name: Build and push container image
+        uses: docker/build-push-action@v4
+        with:
+          push: true
+          tags: "ghcr.io/${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}/${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}:${{ github.sha }}"
 
   deploy:
     runs-on: ubuntu-latest
@@ -29,6 +32,7 @@ jobs:
       - name: Substitute environment variables in values.yaml
         env:
           ACCESS_FILE_B64: ${{ secrets.ACCESS_FILE_B64 }}
+          IMAGE_NAME: "ghcr.io/${{ env.GITHUB_REPOSITORY_OWNER_PART_SLUG }}/${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}"
         run: "envsubst < values.yaml > values_sub.yaml && mv values_sub.yaml values.yaml"
       - uses: WyriHaximus/github-action-helm3@v3
         with:
@@ -36,3 +40,9 @@ jobs:
             helm dependency update
             helm upgrade files . --install --namespace=pypi --atomic
           kubeconfig: '${{ secrets.KUBECONFIG_RAW }}'
+      - name: Clean up old container images
+        uses: actions/delete-package-versions@v4
+        with:
+          package-name: cloudflare-dyndns
+          package-type: container
+          min-versions-to-keep: 10
