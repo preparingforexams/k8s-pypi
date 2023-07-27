@@ -29,6 +29,8 @@ jobs:
     concurrency: production
     steps:
       - uses: actions/checkout@v3
+      - name: Inject slug/short variables
+        uses: rlespinasse/github-slug-action@v4
       - name: Substitute environment variables in values.yaml
         env:
           ACCESS_FILE_B64: ${{ secrets.ACCESS_FILE_B64 }}
