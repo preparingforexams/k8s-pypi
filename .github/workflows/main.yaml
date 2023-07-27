@@ -45,6 +45,6 @@ jobs:
       - name: Clean up old container images
         uses: actions/delete-package-versions@v4
         with:
-          package-name: cloudflare-dyndns
+          package-name: ${{ env.GITHUB_REPOSITORY_NAME_PART_SLUG }}
           package-type: container
           min-versions-to-keep: 10
