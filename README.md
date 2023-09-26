@@ -3,6 +3,7 @@
 ## Editing .htpasswd file
 
 - Get the current file from the credentials k8s secret
+  - `kubectl -n pypi get secret credentials -o json | jq -r '.data.access_file' | base64 -d > .htpasswd`
 - Either:
   - Remove a user from the file (that's easy just do it in the text file tbh)
   - Install the htpasswd tool (e.g. `apt install apache2-utils`) to update and add users
