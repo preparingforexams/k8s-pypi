@@ -46,7 +46,7 @@ spec:
             secretName: credentials
       containers:
         - name: pypiserver
-          image: {{ .Values.image }}
+          image: {{ .Values.image }}:{{ .Values.appVersion }}
           ports:
             - containerPort: 8080
               protocol: TCP
