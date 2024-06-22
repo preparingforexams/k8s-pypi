@@ -16,6 +16,16 @@ spec:
                 name: pypi
                 port:
                   name: http
+    - host: pypi.bjoernpetersen.net
+      http:
+        paths:
+          - pathType: Prefix
+            path: /
+            backend:
+              service:
+                name: pypi
+                port:
+                  name: http
   tls:
     - secretName: tls-certificate
       hosts:
