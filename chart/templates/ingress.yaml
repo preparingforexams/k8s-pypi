@@ -6,7 +6,7 @@ metadata:
     cert-manager.io/cluster-issuer: letsencrypt
 spec:
   rules:
-    - host: pypi.bjoernpetersen.net
+    - host: pypi-local.bjoernpetersen.net
       http:
         paths:
           - pathType: Prefix
@@ -20,3 +20,4 @@ spec:
     - secretName: tls-certificate
       hosts:
         - pypi.bjoernpetersen.net
+        - pypi-local.bjoernpetersen.net
