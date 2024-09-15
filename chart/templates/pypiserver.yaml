@@ -58,9 +58,9 @@ spec:
               subPath: access_file
               readOnly: true
           startupProbe:
+            initialDelaySeconds: 15
+            failureThreshold: 10
             httpGet:
-              initialDelaySeconds: 30
-              failureThreshold: 20
               port: http
               path: /health
           livenessProbe:
