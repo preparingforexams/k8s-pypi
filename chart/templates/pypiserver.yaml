@@ -38,8 +38,6 @@ spec:
       labels:
         app: pypi
     spec:
-      imagePullSecrets:
-        - name: github
       volumes:
         - name: credentials
           secret:
