@@ -18,6 +18,7 @@ metadata:
   labels:
     app: pypi
 spec:
+  revisionHistoryLimit: 1
   selector:
     matchLabels:
       app: pypi
@@ -28,6 +29,7 @@ spec:
       metadata:
         name: pypi-data
       spec:
+        storageClassName: longhorn-crypto
         accessModes:
           - ReadWriteOnce
         resources:
@@ -38,15 +40,6 @@ spec:
       labels:
         app: pypi
     spec:
-      affinity:
-        nodeAffinity:
-          requiredDuringSchedulingIgnoredDuringExecution:
-            nodeSelectorTerms:
-              - matchExpressions:
-                  - key: bjoernpetersen.net/local-storage
-                    operator: In
-                    values:
-                      - "true"
       volumes:
         - name: credentials
           secret:
