@@ -1,4 +1,4 @@
-FROM pypiserver/pypiserver:v2.3.1
+FROM pypiserver/pypiserver:v2.3.2
 
 CMD [ \
   "run", \
