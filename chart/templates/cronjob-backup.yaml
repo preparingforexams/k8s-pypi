@@ -50,8 +50,8 @@ spec:
                 - "/data"
                 - "s3:"
               resources:
-                requests: ${{ .resources | toJson }}
-                limits: ${{ .resources | toJson }}
+                requests: {{ .resources | toJson }}
+                limits: {{ .resources | toJson }}
               volumeMounts:
                 - mountPath: /config/rclone
                   name: config
