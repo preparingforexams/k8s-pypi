@@ -42,7 +42,6 @@ spec:
                   drop: [ALL]
                 readOnlyRootFilesystem: true
               args:
-                - "--config=/config/rclone.conf"
                 - "sync"
                 - "--update"
                 - "--fast-list"
@@ -54,7 +53,7 @@ spec:
                 requests: ${{ .resources | toJson }}
                 limits: ${{ .resources | toJson }}
               volumeMounts:
-                - mountPath: /config
+                - mountPath: /config/rclone
                   name: config
                   readOnly: true
                 - mountPath: /data
