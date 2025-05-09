@@ -37,6 +37,7 @@ spec:
                       app: pypi
           containers:
             - name: rclone
+              image: {{ .image.repository }}:{{ .image.tag }}
               securityContext:
                 allowPrivilegeEscalation: false
                 capabilities:
