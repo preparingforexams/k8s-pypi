@@ -49,8 +49,8 @@ spec:
                 - "--fast-list"
                 - "--use-server-modtime"
                 - "--retries=1"
-                - "/data/"
-                - "s3:/"
+                - "/data"
+                - "s3:"
               resources:
                 requests: {{ .resources | toJson }}
                 limits: {{ .resources | toJson }}
