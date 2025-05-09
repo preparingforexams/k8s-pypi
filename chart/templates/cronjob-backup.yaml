@@ -67,6 +67,6 @@ spec:
                 secretName: backup
             - name: data
               persistentVolumeClaim:
-                claimName: pypi-0
+                claimName: pypi-data-pypi-0
                 readOnly: true
 {{- end }}
