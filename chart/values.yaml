@@ -1,2 +1,12 @@
 image: ghcr.io/preparingforexams/k8s-pypi
 appVersion: latest
+backup:
+  enabled: true
+  schedule: "42 4 * * *"
+  timeZone: "Europe/Berlin"
+  image:
+    repository: ghcr.io/rclone/rclone
+    tag: 1.69.2
+  resources:
+    cpu: "500m"
+    memory: "512Mi"

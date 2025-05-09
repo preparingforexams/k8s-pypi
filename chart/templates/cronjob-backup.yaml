@@ -1,0 +1,71 @@
+# docker pull :1.69.2
+---
+{{- with .Values.backup }}
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: backup
+spec:
+  suspend: {{ not .enabled }}
+  schedule: {{ .schedule | quote }}
+  timeZone: {{ .timeZone | quote }}
+  concurrencyPolicy: Forbid
+  failedJobsHistoryLimit: 1
+  successfulJobsHistoryLimit: 3
+  startingDeadlineSeconds: 1200
+  jobTemplate:
+    spec:
+      backoffLimit: 0
+      activeDeadlineSeconds: 7200
+      template:
+        spec:
+          serviceAccountName: pypi
+          securityContext:
+            fsGroup: 1009
+            runAsGroup: 1009
+            runAsUser: 1009
+            runAsNonRoot: true
+            seccompProfile:
+              type: RuntimeDefault
+          affinity:
+            podAffinity:
+              requiredDuringSchedulingIgnoredDuringExecution:
+                - topologyKey: kubernetes.io/hostname
+                  labelSelector:
+                    matchLabels:
+                      app: pypi
+          containers:
+            - name: rclone
+              securityContext:
+                allowPrivilegeEscalation: false
+                capabilities:
+                  drop: [ALL]
+                readOnlyRootFilesystem: true
+              args:
+                - "--config=/config/rclone.conf"
+                - "sync"
+                - "--update"
+                - "--fast-list"
+                - "--use-server-modtime"
+                - "--dry-run" # TODO: delete
+                - "/data"
+                - "s3:"
+              resources:
+                requests: ${{ .resources | toJson }}
+                limits: ${{ .resources | toJson }}
+              volumeMounts:
+                - mountPath: /config
+                  name: config
+                  readOnly: true
+                - mountPath: /data
+                  name: data
+                  readOnly: true
+          volumes:
+            - name: config
+              secret:
+                secretName: backup
+            - name: data
+              persistentVolumeClaim:
+                claimName: pypi-0
+                readOnly: true
+{{- end }}
