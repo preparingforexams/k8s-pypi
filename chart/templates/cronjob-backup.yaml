@@ -45,13 +45,13 @@ spec:
                 readOnlyRootFilesystem: true
               args:
                 - "sync"
+                - "/data"
+                - "s3:"
                 - "--update"
                 - "--fast-list"
                 - "--use-server-modtime"
-                - "--missing-on-dst"
+                - "--missing-on-dst=-"
                 - "--retries=1"
-                - "/data"
-                - "s3:"
               resources:
                 requests: {{ .resources | toJson }}
                 limits: {{ .resources | toJson }}
