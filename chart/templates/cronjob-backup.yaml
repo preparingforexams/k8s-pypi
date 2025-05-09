@@ -22,9 +22,9 @@ spec:
           restartPolicy: Never
           serviceAccountName: pypi
           securityContext:
-            fsGroup: 1009
-            runAsGroup: 1009
-            runAsUser: 1009
+            fsGroup: 9898
+            runAsGroup: 9898
+            runAsUser: 9898
             runAsNonRoot: true
             seccompProfile:
               type: RuntimeDefault
@@ -48,7 +48,6 @@ spec:
                 - "--update"
                 - "--fast-list"
                 - "--use-server-modtime"
-                - "--dry-run" # TODO: delete
                 - "/data"
                 - "s3:"
               resources:
