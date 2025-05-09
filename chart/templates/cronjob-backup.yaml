@@ -49,7 +49,6 @@ spec:
                 - "--fast-list"
                 - "--use-server-modtime"
                 - "--retries=1"
-                - "-v"
                 - "/data"
                 - "s3:"
               resources:
