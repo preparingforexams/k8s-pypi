@@ -3,7 +3,10 @@ kind: Ingress
 metadata:
   name: pypi
   annotations:
-    cert-manager.io/cluster-issuer: letsencrypt
+    cert-manager.io/cluster-issuer: zerossl
+    cert-manager.io/private-key-algorithm: ECDSA
+    cert-manager.io/private-key-rotation-policy: Always
+    cert-manager.io/issue-temporary-certificate: "false"
 spec:
   rules:
     - host: pypi-local.bjoernpetersen.net
