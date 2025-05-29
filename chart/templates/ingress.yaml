@@ -19,7 +19,7 @@ spec:
                 name: pypi
                 port:
                   name: http
-    - host: pypi.bjoernpetersen.net
+    - host: pypi-direct.bjoernpetersen.net
       http:
         paths:
           - pathType: Prefix
@@ -32,5 +32,5 @@ spec:
   tls:
     - secretName: tls-certificate
       hosts:
-        - pypi.bjoernpetersen.net
+        - pypi-direct.bjoernpetersen.net
         - pypi-local.bjoernpetersen.net
