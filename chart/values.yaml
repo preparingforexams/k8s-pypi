@@ -6,7 +6,7 @@ backup:
   timeZone: "Europe/Berlin"
   image:
     repository: ghcr.io/rclone/rclone
-    tag: 1.69.3
+    tag: 1.70.0
   resources:
     cpu: "500m"
     memory: "512Mi"
