@@ -1,4 +1,4 @@
-FROM pypiserver/pypiserver:v2.4.0
+FROM docker.io/pypiserver/pypiserver:v2.4.0
 
 RUN apk add --no-cache tini
 
